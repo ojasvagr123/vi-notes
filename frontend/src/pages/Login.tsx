@@ -7,26 +7,18 @@ export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
       const { data } = await api.post("/auth/login", formData);
       await login(data.token, data.user);
@@ -85,9 +77,7 @@ export default function Login() {
         <div className="flex items-center justify-center px-6 py-10">
           <div className="w-full max-w-md rounded-[30px] border border-white/8 bg-gradient-to-br from-[#1b0c04] to-[#120701] p-8 shadow-[0_0_50px_rgba(255,166,0,0.08)]">
             <h1 className="text-4xl font-extrabold">Welcome back</h1>
-            <p className="mt-2 text-white/60">
-              Login to continue with Vi-Notes.
-            </p>
+            <p className="mt-2 text-white/60">Login to continue with Vi-Notes.</p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
@@ -131,10 +121,7 @@ export default function Login() {
 
             <p className="mt-6 text-center text-sm text-white/55">
               Don&apos;t have an account?{" "}
-              <Link
-                to="/register"
-                className="font-medium text-amber-300 transition hover:text-amber-200"
-              >
+              <Link to="/register" className="font-medium text-amber-300 transition hover:text-amber-200">
                 Register
               </Link>
             </p>

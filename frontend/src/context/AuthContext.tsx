@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import api from "../services/api";
 
 type User = {
@@ -21,7 +27,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token")
+  );
   const [loading, setLoading] = useState(true);
 
   const fetchMe = async () => {
@@ -48,7 +56,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (newToken: string, passedUser?: User | null) => {
     localStorage.setItem("token", newToken);
     setToken(newToken);
-
     if (passedUser) {
       setUser(passedUser);
       setLoading(false);
@@ -72,10 +79,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-
   if (!context) {
     throw new Error("useAuth must be used inside AuthProvider");
   }
-
   return context;
 }
