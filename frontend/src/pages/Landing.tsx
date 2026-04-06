@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Landing() {
+  const { user } = useAuth();
+
   return (
     <div className="min-h-screen bg-[#120701] text-white">
       <header className="border-b border-white/10 bg-[#120701]/90 backdrop-blur">
@@ -15,18 +18,37 @@ export default function Landing() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Link
-              to="/login"
-              className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              className="rounded-2xl bg-amber-500 px-5 py-3 font-semibold text-black transition hover:bg-amber-400"
-            >
-              Register
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/editor"
+                  className="rounded-2xl bg-amber-500 px-5 py-3 font-semibold text-black transition hover:bg-amber-400"
+                >
+                  Open Editor
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:bg-white/10"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="rounded-2xl bg-amber-500 px-5 py-3 font-semibold text-black transition hover:bg-amber-400"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -50,19 +72,37 @@ export default function Landing() {
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                <Link
-                  to="/register"
-                  className="rounded-2xl bg-amber-500 px-6 py-4 font-semibold text-black transition hover:bg-amber-400"
-                >
-                  Get Started
-                </Link>
-
-                <Link
-                  to="/login"
-                  className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-white transition hover:bg-white/10"
-                >
-                  Login to Continue
-                </Link>
+                {user ? (
+                  <>
+                    <Link
+                      to="/editor"
+                      className="rounded-2xl bg-amber-500 px-6 py-4 font-semibold text-black transition hover:bg-amber-400"
+                    >
+                      Open Editor
+                    </Link>
+                    <Link
+                      to="/dashboard"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-white transition hover:bg-white/10"
+                    >
+                      Go to Dashboard
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/register"
+                      className="rounded-2xl bg-amber-500 px-6 py-4 font-semibold text-black transition hover:bg-amber-400"
+                    >
+                      Get Started
+                    </Link>
+                    <Link
+                      to="/login"
+                      className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-white transition hover:bg-white/10"
+                    >
+                      Login to Continue
+                    </Link>
+                  </>
+                )}
               </div>
 
               <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -103,8 +143,9 @@ export default function Landing() {
             <div className="rounded-[28px] border border-white/8 bg-gradient-to-br from-[#1b0c04] to-[#120701] p-6 shadow-[0_0_50px_rgba(255,166,0,0.08)]">
               <h3 className="text-2xl font-bold">Why Vi-Notes?</h3>
               <p className="mt-3 text-white/65">
-                Text alone can be misleading. Vi-Notes focuses on how the content
-                was produced, giving stronger evidence of genuine authorship.
+                Text alone can be misleading. Vi-Notes focuses on how the
+                content was produced, giving stronger evidence of genuine
+                authorship.
               </p>
 
               <div className="mt-6 space-y-3">
@@ -112,7 +153,8 @@ export default function Landing() {
                   1. Detects suspicious insertions during the writing session
                 </div>
                 <div className="rounded-2xl bg-[#09070d] p-4 text-white/85">
-                  2. Preserves behavioral metadata instead of storing private keystrokes
+                  2. Preserves behavioral metadata instead of storing private
+                  keystrokes
                 </div>
                 <div className="rounded-2xl bg-[#09070d] p-4 text-white/85">
                   3. Produces interpretable authenticity evidence
@@ -129,14 +171,12 @@ export default function Landing() {
                     Capture pauses, deletions, corrections, and typing flow.
                   </p>
                 </div>
-
                 <div className="rounded-2xl bg-white/5 p-4">
                   <p className="text-sm text-white/45">Pattern Detection</p>
                   <p className="mt-1 text-white/85">
                     Spot unnatural jumps and inconsistent writing transitions.
                   </p>
                 </div>
-
                 <div className="rounded-2xl bg-white/5 p-4">
                   <p className="text-sm text-white/45">Report Generation</p>
                   <p className="mt-1 text-white/85">

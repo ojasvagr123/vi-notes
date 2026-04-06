@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Dashboard() {
@@ -9,7 +9,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     const tokenFromUrl = searchParams.get("token");
-
     if (tokenFromUrl) {
       login(tokenFromUrl).then(() => {
         navigate("/dashboard", { replace: true });
@@ -36,6 +35,18 @@ export default function Dashboard() {
               </h1>
               <p className="text-sm text-white/45">Authenticated Workspace</p>
             </div>
+            <Link
+              to="/editor"
+              className="ml-4 rounded-xl bg-amber-500/15 px-4 py-2 font-medium text-amber-300 transition hover:bg-amber-500/25"
+            >
+              Editor
+            </Link>
+            <Link
+              to="/report"
+              className="rounded-xl bg-amber-500/15 px-4 py-2 font-medium text-amber-300 transition hover:bg-amber-500/25"
+            >
+              Report
+            </Link>
           </div>
 
           <button
@@ -93,6 +104,22 @@ export default function Dashboard() {
                 <p className="mt-2 text-lg text-white/70">Auth provider</p>
               </div>
             </div>
+
+            {/* Quick actions */}
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                to="/editor"
+                className="rounded-2xl bg-amber-500 px-6 py-4 font-semibold text-black transition hover:bg-amber-400"
+              >
+                Open Editor
+              </Link>
+              <Link
+                to="/report"
+                className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-semibold text-white transition hover:bg-white/10"
+              >
+                View Report
+              </Link>
+            </div>
           </div>
 
           <aside className="space-y-6">
@@ -105,14 +132,12 @@ export default function Dashboard() {
                     {user?.name || "N/A"}
                   </p>
                 </div>
-
                 <div className="rounded-2xl bg-[#09070d] p-4">
                   <p className="text-sm text-white/45">Email</p>
                   <p className="mt-1 break-all text-lg font-semibold text-white">
                     {user?.email || "N/A"}
                   </p>
                 </div>
-
                 <div className="rounded-2xl bg-[#09070d] p-4">
                   <p className="text-sm text-white/45">Provider</p>
                   <p className="mt-1 text-lg font-semibold text-white">

@@ -7,27 +7,18 @@ export default function Register() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
       const { data } = await api.post("/auth/register", formData);
       await login(data.token, data.user);
@@ -86,9 +77,7 @@ export default function Register() {
         <div className="flex items-center justify-center px-6 py-10">
           <div className="w-full max-w-md rounded-[30px] border border-white/8 bg-gradient-to-br from-[#1b0c04] to-[#120701] p-8 shadow-[0_0_50px_rgba(255,166,0,0.08)]">
             <h1 className="text-4xl font-extrabold">Create account</h1>
-            <p className="mt-2 text-white/60">
-              Join Vi-Notes to verify authentic writing.
-            </p>
+            <p className="mt-2 text-white/60">Join Vi-Notes to verify authentic writing.</p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
@@ -144,10 +133,7 @@ export default function Register() {
 
             <p className="mt-6 text-center text-sm text-white/55">
               Already have an account?{" "}
-              <Link
-                to="/login"
-                className="font-medium text-amber-300 transition hover:text-amber-200"
-              >
+              <Link to="/login" className="font-medium text-amber-300 transition hover:text-amber-200">
                 Login
               </Link>
             </p>
